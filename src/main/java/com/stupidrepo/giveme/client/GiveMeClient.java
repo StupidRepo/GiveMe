@@ -2,7 +2,7 @@ package com.stupidrepo.giveme.client;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.logging.LogUtils;
-import io.netty.util.internal.logging.InternalLogger;
+import dev.xpple.betterconfig.api.ModConfigBuilder;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
