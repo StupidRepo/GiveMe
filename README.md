@@ -1,5 +1,5 @@
 # GiveMe
-A client-side Fabric mod to give you any item you want (incl. Barriers, Command Blocks, etc.) with as much NBT data as you want (within the 256 character limit - you can install another mod to bypass that).
+A client-side Fabric mod to give you any item you want (incl. Barriers, Command Blocks, etc.) with as much NBT data as you want (even over the 256 character limit!).
 
 Requires you to be in Creative, but doesn't require OP or cheats to be enabled. Useful on Multiplayer servers with PlotSquared (or any other plot plugin) installed.
 
