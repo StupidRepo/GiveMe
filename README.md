@@ -4,7 +4,12 @@ A client-side Fabric mod to give you any item you want (incl. Barriers, Command 
 Requires you to be in Creative, but doesn't require OP or cheats to be enabled. Useful on Multiplayer servers with PlotSquared (or any other plot plugin) installed.
 
 ## Usage
-`/giveme <item> [count (default: 1)]`
+```
+/giveme <item> [count (default: 1)]
+```
 
 To attach NBT data to the item, use the following syntax:
-`/giveme <item>{NBT data} [count (default: 1)]` (for example: `/giveme minecraft:stick{display:{Name:"custom name"}}`)
+```
+/giveme <item>{NBT data} [count (default: 1)]
+``` 
+(for example: `/giveme minecraft:stick{display:{Name:"custom name"}}`)
