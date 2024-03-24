@@ -12,4 +12,8 @@ To attach NBT data to the item, use the following syntax:
 ```
 /giveme <item>{NBT data} [count (default: 1)]
 ``` 
-(for example: `/giveme minecraft:stick{display:{Name:"custom name"}}`)
+
+Example:
+```
+/giveme stick{display:{Name:'{"text":"e"}'}}
+```
