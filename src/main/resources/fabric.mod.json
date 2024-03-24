@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "giveme",
+  "version": "${version}",
+  "name": "GiveMe",
+  "description": "Allows you to get custom NBT items in Creative servers without OP/Admin!",
+  "authors": [
+    "StupidRepo"
+  ],
+  "contact": {
+    "website": "doyouliveinthe.uk",
+    "repo": "https://github.com/StupidRepo/GiveMe"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/giveme/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.stupidrepo.giveme.client.GiveMeClient"
+    ]
+  },
+  "mixins": [
+    "giveme.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

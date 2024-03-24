@@ -1,0 +1,5 @@
+{
+  "commands.cgive.not_in_creative": "You need to be in Creative Mode to run this command!",
+  "commands.cgive.too_many_items": "This item can only stack up to %d. You can't give yourself more than that.",
+  "commands.cgive.not_enough_space": "There is not enough space in your hotbar to receive this item. Please clear a slot!"
+}
