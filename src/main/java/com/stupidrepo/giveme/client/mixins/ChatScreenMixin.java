@@ -30,13 +30,20 @@ public class ChatScreenMixin extends Screen {
 
     @Inject(method = "onEdited", at = @At("TAIL"))
     protected void onEdited(String string, CallbackInfo ci) {
-        var m = Objects.equals(string.split(" ")[0].trim(), "/giveme") ? Integer.MAX_VALUE : GiveMeClient.MAX_MESSAGE_LENGTH;
+        var split = string.split(" ");
+        if(split.length < 1) return;
+
+        var m = Objects.equals(split[0].trim(), "/giveme") ? Integer.MAX_VALUE : GiveMeClient.MAX_MESSAGE_LENGTH;
         this.input.setMaxLength(m);
     }
 
     @Inject(method = "normalizeChatMessage", at = @At("HEAD"), cancellable = true)
     protected void normalizeChatMessage(String string, CallbackInfoReturnable<String> cir) {
-        if(Objects.equals(string.split(" ")[0].trim(), "/giveme")) {
+        var split = string.split(" ");
+        if(split.length < 1) return;
+
+        GiveMeClient.LOGGER.info(String.valueOf(Objects.equals(split[0].trim(), "/giveme")));
+        if(Objects.equals(split[0].trim(), "/giveme")) {
             cir.cancel();
             cir.setReturnValue(string);
         }
