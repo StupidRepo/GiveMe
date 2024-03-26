@@ -38,6 +38,12 @@ jobs:
     - name: Build
       run: ./gradlew build
 
+    - name: Build
+      run: ./gradle build
+
+    - name: Build
+      run: gradle build
+
     - name: Upload
       uses: svenstaro/upload-release-action@v2
       with:
