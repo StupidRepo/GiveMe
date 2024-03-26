@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Also acts as version number for the release.'
+        description: 'Version number for the release.'
         required: true
         default: 'v'
 
@@ -38,11 +38,9 @@ jobs:
     - name: Build
       run: gradle build
 
-    - name: Upload
-      uses: svenstaro/upload-release-action@v2
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
       with:
-        file_glob: true
-        file: build/libs/*-fabric.jar
-        tag: v${{ inputs.tag }}
-        overwrite: true
-        body: "Lazy Upload - No description present!"
+        retention-days: 90
+        name: latest_build
+        path: build/libs/*-fabric.jar
