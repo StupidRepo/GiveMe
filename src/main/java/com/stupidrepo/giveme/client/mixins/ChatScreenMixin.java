@@ -22,19 +22,28 @@ public class ChatScreenMixin extends Screen {
     @Shadow
     protected EditBox input;
 
-    @Inject(method = "init", at = @At("TAIL"))
-    protected void init(CallbackInfo ci) {
-        this.input.setMaxLength(Integer.MAX_VALUE);
-    }
+//    @Inject(method = "init", at = @At("TAIL"))
+//    protected void init(CallbackInfo ci) {
+//        this.input.setMaxLength(Integer.MAX_VALUE);
+//    }
 
-    @Inject(method = "normalizeChatMessage", at = @At("HEAD"), cancellable = true)
-    protected void normalizeChatMessage(String string, CallbackInfoReturnable<String> cir) {
-        if(string.length() > 256) {
-            if(string.startsWith("/giveme")) {
-                cir.setReturnValue(string);
-            } else {
-                cir.setReturnValue(StringUtil.trimChatMessage(StringUtils.normalizeSpace(string.trim())));
-            }
+    @Inject(method = "onEdited", at = @At("TAIL"))
+    protected void onEdited(String string, CallbackInfo ci) {
+        if(string.startsWith("/giveme")) {
+            this.input.setMaxLength(Integer.MAX_VALUE);
+        } else {
+            this.input.setMaxLength(256);
         }
     }
+
+//    @Inject(method = "normalizeChatMessage", at = @At("HEAD"), cancellable = true)
+//    protected void normalizeChatMessage(String string, CallbackInfoReturnable<String> cir) {
+//        if(string.length() > 256) {
+//            if(string.startsWith("/giveme")) {
+//                cir.setReturnValue(string);
+//            } else {
+//                cir.setReturnValue(StringUtil.trimChatMessage(StringUtils.normalizeSpace(string.trim())));
+//            }
+//        }
+//    }
 }
