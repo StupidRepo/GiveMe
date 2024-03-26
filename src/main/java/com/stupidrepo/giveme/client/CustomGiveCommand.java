@@ -5,7 +5,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.network.chat.Component;
@@ -30,7 +29,7 @@ public class CustomGiveCommand {
         dispatcher.register(literal("giveme")
                 .then(argument("item", itemStack(context)).executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), 1))
                         .then(argument("count", integer(1)).executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), getInteger(ctx, "count"))))));
-        LOGGER.info("Registered /giveme command");
+        LOGGER.info("Registered the giveme command");
     }
 
     private static int give(FabricClientCommandSource source, ItemInput itemInput, int count) throws CommandSyntaxException {

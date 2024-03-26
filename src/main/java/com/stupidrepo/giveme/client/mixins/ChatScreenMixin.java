@@ -1,17 +1,18 @@
 package com.stupidrepo.giveme.client.mixins;
 
+import com.stupidrepo.giveme.client.GiveMeClient;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.StringUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin extends Screen {
@@ -29,21 +30,15 @@ public class ChatScreenMixin extends Screen {
 
     @Inject(method = "onEdited", at = @At("TAIL"))
     protected void onEdited(String string, CallbackInfo ci) {
-        if(string.startsWith("/giveme")) {
-            this.input.setMaxLength(Integer.MAX_VALUE);
-        } else {
-            this.input.setMaxLength(256);
-        }
+        var m = Objects.equals(string.split(" ")[0].trim(), "/giveme") ? Integer.MAX_VALUE : GiveMeClient.MAX_MESSAGE_LENGTH;
+        this.input.setMaxLength(m);
     }
 
-//    @Inject(method = "normalizeChatMessage", at = @At("HEAD"), cancellable = true)
-//    protected void normalizeChatMessage(String string, CallbackInfoReturnable<String> cir) {
-//        if(string.length() > 256) {
-//            if(string.startsWith("/giveme")) {
-//                cir.setReturnValue(string);
-//            } else {
-//                cir.setReturnValue(StringUtil.trimChatMessage(StringUtils.normalizeSpace(string.trim())));
-//            }
-//        }
-//    }
+    @Inject(method = "normalizeChatMessage", at = @At("HEAD"), cancellable = true)
+    protected void normalizeChatMessage(String string, CallbackInfoReturnable<String> cir) {
+        if(Objects.equals(string.split(" ")[0].trim(), "/giveme")) {
+            cir.cancel();
+            cir.setReturnValue(string);
+        }
+    }
 }
