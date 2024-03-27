@@ -21,15 +21,27 @@ import static dev.xpple.clientarguments.arguments.CItemStackArgumentType.itemSta
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
-public class CustomGiveCommand {
+public class GiveMeCommands {
     private static final SimpleCommandExceptionType NOT_CREATIVE_EXCEPTION = new SimpleCommandExceptionType(Component.translatable("commands.cgive.not_in_creative"));
     private static final SimpleCommandExceptionType NOT_ENOUGH_SPACE = new SimpleCommandExceptionType(Component.translatable("commands.cgive.not_enough_space"));
 
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandBuildContext context) {
         dispatcher.register(literal("giveme")
-                .then(argument("item", itemStack(context)).executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), 1))
-                        .then(argument("count", integer(1)).executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), getInteger(ctx, "count"))))));
-        LOGGER.info("Registered the giveme command");
+                .then(literal("item")
+                        .then(argument("item", itemStack(context))
+                                .executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), 1))
+                                .then(argument("count", integer(1))
+                                        .executes(ctx -> give(ctx.getSource(), getCItemStackArgument(ctx, "item"), getInteger(ctx, "count"))))
+                        )
+                )
+                .then(literal("debug")
+                        .executes(ctx -> {
+                            LOGGER.info("Debug command executed");
+                            return Command.SINGLE_SUCCESS;
+                        })
+                )
+        );
+        LOGGER.info("Registered the giveme command, and all sub-commands.");
     }
 
     private static int give(FabricClientCommandSource source, ItemInput itemInput, int count) throws CommandSyntaxException {

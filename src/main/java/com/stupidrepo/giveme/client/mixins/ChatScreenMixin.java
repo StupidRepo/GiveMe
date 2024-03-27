@@ -1,6 +1,7 @@
 package com.stupidrepo.giveme.client.mixins;
 
 import com.stupidrepo.giveme.client.GiveMeClient;
+import net.minecraft.client.gui.components.CommandSuggestions;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,9 +24,13 @@ public class ChatScreenMixin extends Screen {
     @Shadow
     protected EditBox input;
 
+//    @Shadow private CommandSuggestions commandSuggestions;
+
 //    @Inject(method = "init", at = @At("TAIL"))
 //    protected void init(CallbackInfo ci) {
-//        this.input.setMaxLength(Integer.MAX_VALUE);
+//        this.commandSuggestions = new CommandSuggestions(this.minecraft, this, this.input, this.font, false, false, 1, 10, true, -805306368);
+//        this.commandSuggestions.setAllowHiding(false);
+//        this.commandSuggestions.updateCommandInfo();
 //    }
 
     @Inject(method = "onEdited", at = @At("TAIL"))
@@ -42,7 +47,6 @@ public class ChatScreenMixin extends Screen {
         var split = string.split(" ");
         if(split.length < 1) return;
 
-        GiveMeClient.LOGGER.info(String.valueOf(Objects.equals(split[0].trim(), "/giveme")));
         if(Objects.equals(split[0].trim(), "/giveme")) {
             cir.cancel();
             cir.setReturnValue(string);

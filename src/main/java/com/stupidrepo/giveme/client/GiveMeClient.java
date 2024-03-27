@@ -18,6 +18,6 @@ public class GiveMeClient implements ClientModInitializer {
     }
 
     private static void registerCommands(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandBuildContext context) {
-        CustomGiveCommand.register(dispatcher, context);
+        GiveMeCommands.register(dispatcher, context);
     }
 }
